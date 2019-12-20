@@ -12,7 +12,7 @@ if(isset($_GET['reset'])){
   $query = mysql_query("SELECT * FROM `rechner` WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
   if(mysql_num_rows($query) < 1){
       $now = date( 'Y-m-d H:i:s', time() );
-      mysql_query("INSERT INTO `rechner` (`pcnr`, `step`, `cheater`, `time`) VALUES ('$pcnr', 1, 0, '$now')") or die('SQL-Fehler:'.mysql_error());
+      mysql_query("INSERT INTO `rechner` (`pcnr`, `step`, `cheater`, `created`, `last_update`) VALUES ('$pcnr', 1, 0, '$now', '$now')") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Los Gehts!</h1><br><a href="task.php?step=1">Stufe 1</a></center>';
   }else{
       $query = mysql_query("SELECT `step` FROM `rechner` WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());

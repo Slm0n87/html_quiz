@@ -8,7 +8,7 @@ $now = date( 'Y-m-d H:i:s', time() );
 $query = mysql_query("SELECT `step` FROM `rechner` WHERE `pcnr` = '$pcnr' && `step` >= ".$_GET['step']." LIMIT 1") or die('SQL-FehlerX:'.mysql_error());
 $res = mysql_fetch_row($query);
 if(mysql_num_rows($query) < 1){
-    mysql_query("UPDATE `rechner` SET `time` = '$now', `cheater` = 1, `time` = '$now' WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+    mysql_query("UPDATE `rechner` SET `last_update` = '$now', `cheater` = 1, WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
     $query = mysql_query("SELECT `step` FROM `rechner` WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
     $res = mysql_fetch_row($query);
     echo '<h1>Netter Versuch!</h1><br><h3>L&ouml;se erstmal die Stufe davor :P</h3><a href="task.php?step='.$res[0].'">Stufe '.$res[0].'</a>';
@@ -19,7 +19,7 @@ if(mysql_num_rows($query) < 1){
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == '<head>' || $_POST['pass'] == '<HEAD>'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -49,7 +49,7 @@ if(mysql_num_rows($query) < 1){
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == '</p>'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Weiter gehts...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -89,7 +89,7 @@ if(mysql_num_rows($query) < 1){
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == '</body>'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Jetzt Lohnt es sich, zugeh&ouml;rt zu haben...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -139,7 +139,7 @@ This text is in Times and green</p>
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == '<!--'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Weiter gehts...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -170,7 +170,7 @@ This text is in Times and green</p>
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if(preg_match('/(\<hr.*\>|\<HR.*\>)/',$_POST['pass'])){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Weiter mit etwas Debugging...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -201,7 +201,7 @@ This text is in Times and green</p>
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){$string = str_replace("\r\n",'',stripslashes($_POST['pass']));
      if(preg_match('/<html>.*<body>.*<table\ .*>.*<tr>.*<td>.*<td>.*<tr>.*<td>.*<td>.*<tr>.*<td>.*<td>.*<tr>.*<td>.*<td>.*<\/html>/', $string)){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>War doch einfach, oder?<br>Gleich nochmal...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -265,7 +265,7 @@ This text is in Times and green</p>
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){$string = str_replace("\r\n",'',stripslashes($_POST['pass']));
      if(preg_match('/<html>.*<body>.*<p>.*<a\ href\=\".*<u>.*<\/u>.*<\/a>.*<p>.*<a href\=\"http:\/\/www.microsoft.com\/?\">.*<p>.*<\/p>.*<\/body>.*<\/html>/', $string)){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Machen wir mit etwas CSS weiter...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -322,7 +322,7 @@ You can also use an image as a link:
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == 18){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Es hat ja doch jemand aufgepasst ;-)</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -379,7 +379,7 @@ td {font-family:Arial;}
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){$string = str_replace("\r\n",'',stripslashes($_POST['pass']));
      if(preg_match('/<html>.*<head>.*<title>.*<\/title>.*<link.*rel\=\"stylesheet\".*type\=\"text\/css\".*href\=\"formate\.css\".*>.*<\/head>.*<body>.*<\/body>.*<\/html>/', $string)){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Weils so sch&ouml;n ist noch etwas CSS...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -422,7 +422,7 @@ td {font-family:Arial;}
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){$string = str_replace("\r\n",'',stripslashes($_POST['pass']));
      if(preg_match('/a\:link.*\{.*\}.*a\:visited.*\{.*color\:.*\}.*a\:focus.*\{.*\}.*a\:hover.*\{.*\}.*a\:active.*\#haupt.*\;.*\;.*\;.*\}.*\#text1.*\{.*\}.*(\#|\.)text2.*\{.*\;.*\;.*\;.*\;.*text-align\:.*(left|center|right|justify).*\;.*\;.*\;.*\}/', $string)){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Richtig!</h1><br><h3>Jetzt wirds interessant :]</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -487,7 +487,7 @@ float:left;
   $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == 'html'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>!</h1><br><h3>So weit, so gut. Aber was lernen wir daraus?<br>Passw&ouml;rter haben im Quelltext nichts zu suchen.</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -519,7 +519,7 @@ Passwort:<br><br><!--Hier findest du das Passwort dieser Stufe: "html" -->
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == 'code'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>Auch gut versteckt sind sie nicht sicher ;)</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -557,7 +557,7 @@ Passwort:<br><br>
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == 'geheim'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>So sollte auch kein Passwort abgefragt werden.</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -597,7 +597,7 @@ i=4;
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == '55'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>Gut aufgepasst ;)</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -640,7 +640,7 @@ window.location.href="?step=14&a&pass=" + passwort;
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == '42'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>Gut aufgepasst ;)</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -676,7 +676,7 @@ var passwort = "VielZuEinfach";
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == 'bmwcabrio'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>Zugegeben, das war nicht leicht...</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -720,7 +720,7 @@ window.location.href="?step=16&a&pass=" + passwort;
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == 'mies'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>*gg*</h1><br><h3>Endspurt =))</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -752,7 +752,7 @@ else {window.location.href="?step=17&a";}
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == 'EFG'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>*gg*</h1><br><h3>Endspurt =))</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -795,7 +795,7 @@ passwortabfrage();
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_GET['pass'] == 'internet' || $_POST['pass'] == 'internet'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>OK!</h1><br><h3>Einen haben wir noch</h3><a href="task.php?step='.$nextstep.'">Stufe '.$nextstep.'</a></center>';
       die();
      }else{
@@ -823,7 +823,7 @@ Alles Klar?!</h3>
     $nextstep = $_GET['step'] + 1;
     if(isset($_GET['a'])){
      if($_POST['pass'] == 'geschafft'){
-      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `time` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
+      if($_GET['step'] == $res[0]) mysql_query("UPDATE `rechner` SET `last_update` = '$now', `step` = $nextstep WHERE `pcnr` = '$pcnr' LIMIT 1") or die('SQL-Fehler:'.mysql_error());
       echo '<center><h1>Geschafft</h1><br><h3><img src="bananadance.gif" alt="banana"> !!!Gl&uuml;ckwunsch!!! <img src="bananadance.gif" alt="banana"></h3></center>';
       die();
      }else{
